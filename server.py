@@ -1,5 +1,5 @@
+import uvicorn
 from fastapi import FastAPI, UploadFile
-
 from config import Config
 
 app = FastAPI()
@@ -18,3 +18,14 @@ async def download(file: UploadFile):
             f.write(i)
     await file.close()
     return 'Uploaded successfully !'
+
+
+if __name__ == '__main__':
+    SERVER = config.get('server')
+    uvicorn.run(
+        app="server:app",
+        host=SERVER['host'],
+        port=SERVER['port'],
+        workers=SERVER['workers'],
+        reload=False
+    )
