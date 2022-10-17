@@ -17,7 +17,7 @@ async def download(file: UploadFile):
         for i in iter(file_iterator, b''):
             f.write(i)
     await file.close()
-    return 'Uploaded successfully !'
+    return f'Uploaded successfully: {file.filename}'
 
 
 if __name__ == '__main__':
