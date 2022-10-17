@@ -6,3 +6,5 @@ server:
 size: 1024*1024*10
 
 directory: ./downloads/
+
+base_url: http://127.0.0.1:8181

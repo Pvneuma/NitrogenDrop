@@ -10,7 +10,8 @@ config = Config()
 async def download(file: UploadFile):
 
     def file_iterator():
-        return file.file.read(eval(config.get('size')))
+        size = eval(config.get('size'))
+        return file.file.read(size)
 
     with open(f"{config.get('directory')}{file.filename}", 'wb') as f:
         for i in iter(file_iterator, b''):
