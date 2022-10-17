@@ -1,0 +1,8 @@
+server:
+    host: 127.0.0.1
+    port: 8181
+    workers: 1 #Use multiple worker processes
+
+size: 1024*1024*10
+
+directory: ./downloads/
