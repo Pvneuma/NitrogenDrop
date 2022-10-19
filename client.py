@@ -5,7 +5,7 @@ import typing
 from config import Config
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 from pathlib import Path
-from rich.progress import Progress
+from rich.progress import Progress, TaskProgressColumn, BarColumn, DownloadColumn, TransferSpeedColumn, TimeRemainingColumn, TextColumn, SpinnerColumn
 
 config = Config()
 base_url = config.get('base_url')
@@ -34,13 +34,21 @@ def upload_file(file_path: str):
         file_name = get_file_name(f)
         data = MultipartEncoder(
             fields={'file': (file_name, f, guess_content_type(file_name))})
-        with Progress() as progress:
+        with Progress(
+            # SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
+            TaskProgressColumn(),
+            DownloadColumn(),
+            TransferSpeedColumn(),
+            TimeRemainingColumn(),
+        ) as progress:
             upload_task = progress.add_task("Upload", total=data.len)
             callback = create_callback(progress, upload_task)
             monitor = MultipartEncoderMonitor(data, callback)
             res = requests.post(base_url, data=monitor,
                                 headers={'Content-Type': monitor.content_type})
-            print(res.json())
+        print(res.json())
 
 
 if __name__ == '__main__':
