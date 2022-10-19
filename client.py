@@ -7,11 +7,10 @@ base_url = config.get('base_url')
 
 
 def upload_file(file_path):
-    with httpx.Client() as client:
-        with open(file_path, 'rb') as f:
-            files = {'file': f}
-            res = client.post(base_url, files=files)
-            print(res.json())
+    with open(file_path, 'rb') as f:
+        files = {'file': f}
+        res = httpx.post(base_url, files=files)
+        print(res.json())
 
 
 if __name__ == '__main__':
