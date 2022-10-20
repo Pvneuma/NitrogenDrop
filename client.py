@@ -35,10 +35,8 @@ def upload_file(file_path: str):
         data = MultipartEncoder(
             fields={'file': (file_name, f, guess_content_type(file_name))})
         with Progress(
-            # SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
             TaskProgressColumn(),
+            BarColumn(),
             DownloadColumn(),
             TransferSpeedColumn(),
             TimeRemainingColumn(),
