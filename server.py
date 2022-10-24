@@ -1,4 +1,5 @@
 import uvicorn
+import socket
 from fastapi import FastAPI, UploadFile
 from config import Config
 
@@ -20,8 +21,19 @@ async def download(file: UploadFile):
     return f'Uploaded successfully: {file.filename}'
 
 
+def get_host_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(('8.8.8.8', 80))  # 114.114.114.114也是dns地址
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
+
+
 if __name__ == '__main__':
     SERVER = config.get('server')
+    print("IP: "+get_host_ip())
     uvicorn.run(
         app="server:app",
         host=SERVER['host'],
