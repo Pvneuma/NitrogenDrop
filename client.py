@@ -44,9 +44,12 @@ def upload_file(file_path: str):
             upload_task = progress.add_task("Upload", total=data.len)
             callback = create_callback(progress, upload_task)
             monitor = MultipartEncoderMonitor(data, callback)
-            res = requests.post(base_url, data=monitor,
-                                headers={'Content-Type': monitor.content_type})
-        print(res.json())
+            try:
+                res = requests.post(base_url, data=monitor,
+                                    headers={'Content-Type': monitor.content_type})
+                print(res.json())
+            except requests.exceptions.ConnectionError:
+                print('Connection Error')
 
 
 if __name__ == '__main__':
