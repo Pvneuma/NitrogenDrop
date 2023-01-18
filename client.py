@@ -5,7 +5,7 @@ import typing
 from config import Config
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 from pathlib import Path
-from rich.progress import Progress, TaskProgressColumn, BarColumn, DownloadColumn, TransferSpeedColumn, TimeRemainingColumn, TextColumn, SpinnerColumn
+from rich.progress import Progress, TaskProgressColumn, BarColumn, DownloadColumn, TransferSpeedColumn, TimeRemainingColumn
 
 config = Config()
 base_url = config.get('base_url')
